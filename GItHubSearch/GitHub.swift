@@ -64,7 +64,7 @@ public class GitHubAPI {
     }
     
     public func request<Endpoint: APIEndpoint>(endpoint: Endpoint, handler: (task: NSURLSessionDataTask, response: Endpoint.ResponseType?, error: ErrorType?) -> Void) {
-        let success = { (task: NSURLSessionDataTask!, response: AnyObject!) -> Void in
+        let success = { (task: NSURLSessionDataTask!, response: AnyObject?) -> Void in
             if let JSON = response as? JSONObject {
                 do {
                     let response = try Endpoint.ResponseType(JSON: JSON)
@@ -76,8 +76,8 @@ public class GitHubAPI {
                 handler(task: task, response: nil, error: APIError.UnexpectedResponse)
             }
         }
-        let failure = { (task: NSURLSessionDataTask!, var error: NSError!) -> Void in
-            handler(task: task, response: nil, error: error)
+        let failure = { (task: NSURLSessionDataTask?, var error: NSError) -> Void in
+            handler(task: task!, response: nil, error: error)
         }
         
         switch endpoint.method {

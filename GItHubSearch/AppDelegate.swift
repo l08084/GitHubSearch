@@ -2,7 +2,7 @@
 //  AppDelegate.swift
 //  GItHubSearch
 //
-//  Created by 中安拓也 on 2016/08/15.
+//  Created by l08084 on 2016/08/15.
 //  Copyright © 2016年 l08084. All rights reserved.
 //
 
