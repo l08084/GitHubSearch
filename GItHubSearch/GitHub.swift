@@ -58,7 +58,7 @@ public enum APIError: ErrorType {
 */
 public class GitHubAPI {
     private let HTTPSessionManager: AFHTTPSessionManager = {
-        let manager = AFHTTPSessionManager(baseURL: NSURL(string: "http://api.github.com/"))
+        let manager = AFHTTPSessionManager(baseURL: NSURL(string: "https://api.github.com/"))
         manager.requestSerializer.setValue("application/vnd.github.v3+json", forHTTPHeaderField: "Accept")
         return manager
     }()
@@ -178,7 +178,7 @@ public struct SearchResult<ItemType: JSONDecodable>: JSONDecodable {
     */
     public init(JSON: JSONObject) throws {
         self.totalCount = try getValue(JSON, key: "total_count")
-        self.incompleteResults = try getValue(JSON, key: "incomplete_retsults")
+        self.incompleteResults = try getValue(JSON, key: "incomplete_results")
         self.items = try (getValue(JSON, key: "items") as [JSONObject]).mapWithRethrow { return try ItemType(JSON: $0) }
     }
 }
@@ -202,7 +202,7 @@ public struct Repository: JSONDecodable {
     public let homepage: String?
     public let size: Int
     public let stargazersCount: Int
-    public let wachersCount: Int
+    public let watchersCount: Int
     public let language: String?
     public let forksCount: Int
     public let openIssuesCount: String?
@@ -233,7 +233,7 @@ public struct Repository: JSONDecodable {
         self.homepage = try getOptionalValue(JSON, key: "homepage")
         self.size = try getValue(JSON, key: "size")
         self.stargazersCount = try getValue(JSON, key: "stargazers_count")
-        self.wachersCount = try getValue(JSON, key: "watches_count")
+        self.watchersCount = try getValue(JSON, key: "watchers_count")
         self.language = try getOptionalValue(JSON, key: "language")
         self.forksCount = try getValue(JSON, key: "forks_count")
         self.openIssuesCount = try getValue(JSON, key: "open_issues_count")
